@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "258113390144",
+    "firebase_url": "https://planningpoker-ab3cd.firebaseio.com",
+    "project_id": "planningpoker-ab3cd",
+    "storage_bucket": "planningpoker-ab3cd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:258113390144:android:e50c35134e62d56c",
+        "android_client_info": {
+          "package_name": "com.tchallenge.titansoft.planningpoker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "258113390144-l7iq5npg0t7331huvg1ji73b9025bkgg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCB_9Dp_7k55hhOy95izS30QAln4QpII6c"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
