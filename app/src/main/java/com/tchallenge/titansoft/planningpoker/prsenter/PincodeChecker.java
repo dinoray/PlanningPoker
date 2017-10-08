@@ -1,4 +1,4 @@
-package com.tchallenge.titansoft.planningpoker.model;
+package com.tchallenge.titansoft.planningpoker.prsenter;
 
 import java.util.List;
 

@@ -2,7 +2,7 @@ package com.tchallenge.titansoft.planningpoker;
 
 import android.support.annotation.NonNull;
 
-import com.tchallenge.titansoft.planningpoker.model.PincodeChecker;
+import com.tchallenge.titansoft.planningpoker.prsenter.PincodeChecker;
 
 import org.junit.Test;
 

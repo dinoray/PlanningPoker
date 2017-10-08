@@ -1,7 +1,6 @@
 package com.tchallenge.titansoft.planningpoker.prsenter;
 
 import com.tchallenge.titansoft.planningpoker.model.IRoomListDbHelper;
-import com.tchallenge.titansoft.planningpoker.model.PincodeChecker;
 
 public class RoomFinder {
     private final IRoomListDbHelper mRoomListDbHelper;
