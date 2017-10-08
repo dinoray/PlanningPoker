@@ -43,7 +43,7 @@ public class RoomListDbHelper implements IRoomListDbHelper {
                 mRoomPindCodeList.clear();
                 for (DataSnapshot data : dataSnapshot.getChildren()) {
                     Log.d(TAG, "pinCode: " + data.getKey() + " added");
-                    mRoomPindCodeList.add(dataSnapshot.getKey());
+                    mRoomPindCodeList.add(data.getKey());
                 }
             }
 
