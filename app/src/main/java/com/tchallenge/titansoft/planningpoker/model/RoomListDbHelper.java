@@ -55,6 +55,20 @@ public class RoomListDbHelper implements IRoomListDbHelper {
     }
 
     @Override
+    public boolean createRoom(String pinCode, String nickname) {
+        if(isPincodeExisted(pinCode)) {
+            return false;
+        } else {
+            joinRoom(pinCode, nickname);
+            return true;
+        }
+    }
+
+    private boolean isPincodeExisted(String pinCode) {
+        return new PincodeChecker(mRoomPindCodeList).hasPincode(pinCode);
+    }
+
+    @Override
     public void joinRoom(final String pinCode, String nickName) {
         mRoomDbRef
                 .child(pinCode)
