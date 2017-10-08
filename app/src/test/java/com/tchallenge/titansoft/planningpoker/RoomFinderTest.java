@@ -7,6 +7,9 @@ import com.tchallenge.titansoft.planningpoker.prsenter.RoomFinder;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -37,14 +40,6 @@ public class RoomFinderTest {
     private IRoomListDbHelper getFakeRoomListDbHelper() {
         return new IRoomListDbHelper() {
             @Override
-            public boolean createRoom(String pinCode, String nickname) {
-                if(pinCode.equals(NON_EXIST_PINCODE))
-                    return true;
-                else
-                    return false;
-            }
-
-            @Override
             public void joinRoom(String pinCode, String nickName) {
 
             }
@@ -52,6 +47,13 @@ public class RoomFinderTest {
             @Override
             public void exitRoom(String pinCode, String nickName) {
 
+            }
+
+            @Override
+            public List<String> getExistedRooms() {
+                List<String> existedRooms = new ArrayList<>();
+                existedRooms.add(EXIST_PIN_CODE);
+                return existedRooms;
             }
         };
     }

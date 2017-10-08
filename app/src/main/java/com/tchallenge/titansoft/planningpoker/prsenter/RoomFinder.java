@@ -1,6 +1,7 @@
 package com.tchallenge.titansoft.planningpoker.prsenter;
 
 import com.tchallenge.titansoft.planningpoker.model.IRoomListDbHelper;
+import com.tchallenge.titansoft.planningpoker.model.PincodeChecker;
 
 public class RoomFinder {
     private final IRoomListDbHelper mRoomListDbHelper;
@@ -10,6 +11,16 @@ public class RoomFinder {
     }
 
     public boolean create(String pinCode, String nickname) {
-        return mRoomListDbHelper.createRoom(pinCode, nickname);
+        if(isPincodeExisted(pinCode)) {
+            return false;
+        } else {
+            mRoomListDbHelper.joinRoom(pinCode, nickname);
+            return true;
+        }
     }
+
+    private boolean isPincodeExisted(String pinCode) {
+        return new PincodeChecker(mRoomListDbHelper.getExistedRooms()).hasPincode(pinCode);
+    }
+
 }
