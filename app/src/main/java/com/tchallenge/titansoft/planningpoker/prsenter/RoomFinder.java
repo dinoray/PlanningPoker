@@ -22,4 +22,7 @@ public class RoomFinder {
         return new PincodeChecker(mRoomListDbHelper.getExistedRooms()).hasPincode(pinCode);
     }
 
+    public void join(String pinCode, String nickname) {
+        mRoomListDbHelper.joinRoom(pinCode, nickname);
+    }
 }
