@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".SelectCardActivity" />
-        <activity android:name=".RoundResultActivity"></activity>
+        <activity android:name=".RoundResultActivity" />
+        <activity android:name=".FindRoomActivity" />
     </application>
 
 </manifest>
