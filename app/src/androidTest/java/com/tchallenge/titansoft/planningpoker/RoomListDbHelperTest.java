@@ -24,7 +24,7 @@ public class RoomListDbHelperTest {
         RoomListDbHelper roomListDbHelper = new RoomListDbHelper(new RoomListDbHelper.IRoomDbListener() {
             @Override
             public void onRoomJoin(String pinCode, boolean isSuccess) {
-                assertTrue(pinCode.equals("8888"));
+                assertTrue(pinCode.equals("9999"));
                 assertTrue(isSuccess);
                 RoomListDbHelperTest.this.notifyRoomCreate();
             }
@@ -35,7 +35,7 @@ public class RoomListDbHelperTest {
             }
         });
 
-        roomListDbHelper.joinRoom("8888", "gg");
+        roomListDbHelper.joinRoom("9999", "gg");
         waitRoomCreate();
     }
 

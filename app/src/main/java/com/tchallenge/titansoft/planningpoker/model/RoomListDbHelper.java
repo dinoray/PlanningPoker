@@ -5,14 +5,21 @@ import android.util.Log;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RoomListDbHelper implements IRoomListDbHelper {
     private static final String TAG = RoomListDbHelper.class.getSimpleName();
 
     public interface IRoomDbListener {
         void onRoomJoin(String pinCode, boolean isSuccess);
+
         void onRoomExit(String pinCode, boolean isSuccess);
     }
 
@@ -21,9 +28,30 @@ public class RoomListDbHelper implements IRoomListDbHelper {
     private final DatabaseReference mRoomDbRef;
     private final IRoomDbListener mRoomDbListener;
 
+    private List<String> mRoomPindCodeList = new ArrayList<>();
+
     public RoomListDbHelper(IRoomDbListener roomDbListener) {
         mRoomDbRef = FirebaseDatabase.getInstance().getReference("Rooms");
         mRoomDbListener = roomDbListener;
+        initRoomList();
+    }
+
+    private void initRoomList() {
+        mRoomDbRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                mRoomPindCodeList.clear();
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    Log.d(TAG, "pinCode: " + data.getKey() + " added");
+                    mRoomPindCodeList.add(dataSnapshot.getKey());
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
@@ -35,14 +63,14 @@ public class RoomListDbHelper implements IRoomListDbHelper {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Log.d(TAG, "pinCode: "+pinCode+" create success");
+                        Log.d(TAG, "pinCode: " + pinCode + " create success");
                         mRoomDbListener.onRoomJoin(pinCode, true);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.d(TAG, "pinCode: "+pinCode+" create fail");
+                        Log.d(TAG, "pinCode: " + pinCode + " create fail");
                         mRoomDbListener.onRoomJoin(pinCode, false);
                     }
                 });
@@ -56,14 +84,14 @@ public class RoomListDbHelper implements IRoomListDbHelper {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Log.d(TAG, "pinCode: "+pinCode+" exist success");
+                        Log.d(TAG, "pinCode: " + pinCode + " exist success");
                         mRoomDbListener.onRoomExit(pinCode, true);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.d(TAG, "pinCode: "+pinCode+" exist fail");
+                        Log.d(TAG, "pinCode: " + pinCode + " exist fail");
                         mRoomDbListener.onRoomExit(pinCode, false);
                     }
                 });
