@@ -11,9 +11,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class RoomFinderTest {
-    public static final String NON_EXIST_PINCODE = "7777";
-    public static final String VALID_NICKNAME = "rock";
-    public static final String EXIST_PIN_CODE = "9999";
+    private static final String NON_EXIST_PINCODE = "7777";
+    private static final String VALID_NICKNAME = "rock";
+    private static final String EXIST_PIN_CODE = "9999";
 
     @Test
     public void createRoomWithNonExistPincode_Should_ReturnTrue() throws Exception {
