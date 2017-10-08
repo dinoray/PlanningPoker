@@ -2,8 +2,9 @@ package com.tchallenge.titansoft.planningpoker;
 
 import android.support.annotation.NonNull;
 
+import com.tchallenge.titansoft.planningpoker.contract.FindRoomContract;
 import com.tchallenge.titansoft.planningpoker.model.IRoomListDbHelper;
-import com.tchallenge.titansoft.planningpoker.prsenter.RoomFinder;
+import com.tchallenge.titansoft.planningpoker.prsenter.FindRoomPresenter;
 
 import org.junit.Test;
 
@@ -12,28 +13,28 @@ import java.util.List;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
-public class RoomFinderTest {
-    private static final String NON_EXIST_PINCODE = "7777";
+public class FinRoomPresenterTest {
     private static final String VALID_NICKNAME = "rock";
     private static final String EXIST_PIN_CODE = "9999";
 
     @Test
-    public void createRoomWithNonExistPincode_Should_ReturnTrue() {
-        RoomFinder roomFinder = new RoomFinder(getFakeRoomListDbHelper());
+    public void createRoomWithExistPincode_Should_ShowRoomExistedDialog() {
+        FindRoomContract.IFinRoomView finRoomView = mock(FindRoomContract.IFinRoomView.class);
+        FindRoomPresenter findRoomPresenter = new FindRoomPresenter(finRoomView) {
+            @NonNull
+            @Override
+            protected IRoomListDbHelper getRoomListDbHelper() {
+                return getFakeRoomListDbHelper();
+            }
+        };
         
-        boolean isSuccess = roomFinder.create(NON_EXIST_PINCODE, VALID_NICKNAME);
+        findRoomPresenter.create(EXIST_PIN_CODE, VALID_NICKNAME);
         
-        assertTrue(isSuccess);
-    }
-
-    @Test
-    public void createRoomWithExistPincode_Should_ReturnTrue() {
-        RoomFinder roomFinder = new RoomFinder(getFakeRoomListDbHelper());
-
-        boolean isSuccess = roomFinder.create(EXIST_PIN_CODE, VALID_NICKNAME);
-
-        assertFalse(isSuccess);
+        verify(finRoomView, times(1)).showRoomExistedDialog();
     }
 
     @NonNull

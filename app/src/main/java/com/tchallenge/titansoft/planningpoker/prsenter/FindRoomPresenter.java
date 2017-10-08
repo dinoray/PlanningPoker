@@ -1,6 +1,9 @@
 package com.tchallenge.titansoft.planningpoker.prsenter;
 
+import android.support.annotation.NonNull;
+
 import com.tchallenge.titansoft.planningpoker.contract.FindRoomContract;
+import com.tchallenge.titansoft.planningpoker.model.IRoomListDbHelper;
 import com.tchallenge.titansoft.planningpoker.model.RoomListDbHelper;
 
 public class FindRoomPresenter implements FindRoomContract.IFindRoomPresenter, RoomListDbHelper.IRoomDbListener {
@@ -12,7 +15,12 @@ public class FindRoomPresenter implements FindRoomContract.IFindRoomPresenter, R
     public FindRoomPresenter(FindRoomContract.IFinRoomView findRoomView) {
         mFindRoomView = findRoomView;
 
-        mRoomFinder = new RoomFinder(new RoomListDbHelper(this));
+        mRoomFinder = new RoomFinder(getRoomListDbHelper());
+    }
+
+    @NonNull
+    protected IRoomListDbHelper getRoomListDbHelper() {
+        return new RoomListDbHelper(this);
     }
 
     @Override

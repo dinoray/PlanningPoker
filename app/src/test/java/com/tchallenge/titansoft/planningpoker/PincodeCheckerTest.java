@@ -14,7 +14,7 @@ import static org.junit.Assert.assertTrue;
 
 public class PincodeCheckerTest {
     @Test
-    public void InputNonExistPincode_Should_ReturnFalse() throws Exception {
+    public void InputNonExistPincode_Should_ReturnFalse() {
         List<String> existedPincodeList = createPincodeList();
 
         PincodeChecker pincodeChecker = new PincodeChecker(existedPincodeList);
@@ -23,7 +23,7 @@ public class PincodeCheckerTest {
     }
 
     @Test
-    public void InputExistPincode_Should_ReturnTrue() throws Exception {
+    public void InputExistPincode_Should_ReturnTrue() {
         List<String> existedPincodeList = createPincodeList();
 
         PincodeChecker pincodeChecker = new PincodeChecker(existedPincodeList);
