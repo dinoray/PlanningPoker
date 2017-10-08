@@ -1,4 +1,4 @@
-package com.tchallenge.titansoft.planningpoker;
+package com.tchallenge.titansoft.planningpoker.view;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
 
+import com.tchallenge.titansoft.planningpoker.R;
 import com.tchallenge.titansoft.planningpoker.contract.FindRoomContract;
 import com.tchallenge.titansoft.planningpoker.prsenter.FindRoomPresenter;
 

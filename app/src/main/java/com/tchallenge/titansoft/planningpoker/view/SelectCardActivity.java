@@ -1,9 +1,11 @@
-package com.tchallenge.titansoft.planningpoker;
+package com.tchallenge.titansoft.planningpoker.view;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+
+import com.tchallenge.titansoft.planningpoker.R;
 
 public class SelectCardActivity extends AppCompatActivity {
 
