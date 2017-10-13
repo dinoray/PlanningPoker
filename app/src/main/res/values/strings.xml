@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">PlanningPoker</string>
-    <string name="activity_main_btn_play">Play</string>
-    <string name="activity_main_btn_exit">Exit</string>
+    <string name="activity_main_btn_create">Create</string>
+    <string name="activity_main_btn_join">Join</string>
     <string name="activity_main_title">PlanningPoker</string>
     <string name="activity_round_result_btn_again">Again</string>
     <string name="activity_round_result_btn_finish">Finish</string>
