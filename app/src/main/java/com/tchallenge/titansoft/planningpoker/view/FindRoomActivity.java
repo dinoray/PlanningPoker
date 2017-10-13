@@ -5,6 +5,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.tchallenge.titansoft.planningpoker.R;
@@ -20,23 +22,35 @@ public class FindRoomActivity extends AppCompatActivity implements FindRoomContr
 
         final FindRoomContract.IFindRoomPresenter findRoomPresenter = new FindRoomPresenter(this);
 
-        findViewById(R.id.btn_create).setOnClickListener(new android.view.View.OnClickListener() {
-            @Override
-            public void onClick(android.view.View view) {
-                String pincode = ((EditText)findViewById(R.id.edit_pincode)).getText().toString();
-                String nickname = ((EditText)findViewById(R.id.edit_nickname)).getText().toString();
-                findRoomPresenter.create(pincode, nickname);
-            }
-        });
+        initControl(findRoomPresenter);
+    }
 
-        findViewById(R.id.btn_join).setOnClickListener(new android.view.View.OnClickListener() {
-            @Override
-            public void onClick(android.view.View view) {
-                String pincode = ((EditText)findViewById(R.id.edit_pincode)).getText().toString();
-                String nickname = ((EditText)findViewById(R.id.edit_nickname)).getText().toString();
-                findRoomPresenter.join(pincode, nickname);
-            }
-        });
+    private void initControl(final FindRoomContract.IFindRoomPresenter findRoomPresenter) {
+        int typeInt = getIntent().getIntExtra("Type",0);
+
+        if (typeInt == 1001){
+            Button createBtn = (Button) findViewById(R.id.btn_create);
+            createBtn.setVisibility(View.VISIBLE);
+            createBtn.setOnClickListener(new android.view.View.OnClickListener() {
+                @Override
+                public void onClick(android.view.View view) {
+                    String pincode = ((EditText)findViewById(R.id.edit_pincode)).getText().toString();
+                    String nickname = ((EditText)findViewById(R.id.edit_nickname)).getText().toString();
+                    findRoomPresenter.create(pincode, nickname);
+                }
+            });
+        } else if(typeInt == 1002){
+            Button joinBtn = (Button) findViewById(R.id.btn_join);
+            joinBtn.setVisibility(View.VISIBLE);
+            joinBtn.setOnClickListener(new android.view.View.OnClickListener() {
+                @Override
+                public void onClick(android.view.View view) {
+                    String pincode = ((EditText)findViewById(R.id.edit_pincode)).getText().toString();
+                    String nickname = ((EditText)findViewById(R.id.edit_nickname)).getText().toString();
+                    findRoomPresenter.join(pincode, nickname);
+                }
+            });
+        }
     }
 
     @Override

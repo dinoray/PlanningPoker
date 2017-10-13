@@ -9,6 +9,20 @@ import android.widget.Button;
 import com.tchallenge.titansoft.planningpoker.R;
 
 public class MainActivity extends AppCompatActivity {
+    public enum requestCode {
+        CREATE(1001),
+        JOIN(1002);
+
+        private final int value;
+
+        requestCode(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,8 +33,7 @@ public class MainActivity extends AppCompatActivity {
         startBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startFindRoomActivity();
-                finish();
+                startFindRoomActivity(requestCode.CREATE);
             }
         });
 
@@ -28,13 +41,14 @@ public class MainActivity extends AppCompatActivity {
         exitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                startFindRoomActivity(requestCode.JOIN);
             }
         });
     }
 
-    public void startFindRoomActivity(){
+    public void startFindRoomActivity(requestCode reqCode) {
         Intent intent = new Intent(this, FindRoomActivity.class);
+        intent.putExtra("Type", reqCode.getValue());
         startActivity(intent);
     }
 }
