@@ -62,9 +62,10 @@ public class FindRoomActivity extends AppCompatActivity implements FindRoomContr
 
     @Override
     public void startGame() {
-        Intent intent = new Intent(this, SelectCardActivity.class);
+        Intent intent = new Intent(this, WaitingRoomActivity.class);
+        String pincode = ((EditText) findViewById(R.id.edit_pincode)).getText().toString();
+        intent.putExtra("pincode", pincode);
         startActivity(intent);
-        finish();
     }
 
     @Override
