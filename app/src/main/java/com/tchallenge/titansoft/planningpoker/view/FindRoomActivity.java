@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.tchallenge.titansoft.planningpoker.R;
 import com.tchallenge.titansoft.planningpoker.contract.FindRoomContract;
@@ -61,10 +60,11 @@ public class FindRoomActivity extends AppCompatActivity implements FindRoomContr
     }
 
     @Override
-    public void startGame() {
+    public void joinWaitingRoom(boolean isHost) {
         Intent intent = new Intent(this, WaitingRoomActivity.class);
         String pincode = ((EditText) findViewById(R.id.edit_pincode)).getText().toString();
         intent.putExtra("pincode", pincode);
+        intent.putExtra("host", isHost);
         startActivity(intent);
     }
 

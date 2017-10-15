@@ -37,8 +37,8 @@ public class FindRoomPresenter implements FindRoomContract.IFindRoomPresenter, R
     }
 
     @Override
-    public void onRoomJoin(String pinCode, boolean isSuccess) {
-        mFindRoomView.startGame();
+    public void onRoomJoin(String pinCode, boolean isSuccess, boolean isHost) {
+        mFindRoomView.joinWaitingRoom(isHost);
     }
 
     @Override

@@ -11,5 +11,6 @@
     <string name="activity_find_room_btn_create">Create</string>
     <string name="activity_find_room_error_title">Pincode Exist!</string>
     <string name="activity_find_room_error_message">Pindcode exist, please select another one.</string>
+    <string name="activity_waiting_btn_start">Start</string>
     <string name="dialog_btn_ok">OK</string>
 </resources>

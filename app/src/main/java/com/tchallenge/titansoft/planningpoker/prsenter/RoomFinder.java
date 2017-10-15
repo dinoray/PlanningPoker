@@ -13,7 +13,7 @@ public class RoomFinder {
         if(isPincodeExisted(pinCode)) {
             return false;
         } else {
-            mRoomListDbHelper.joinRoom(pinCode, nickname);
+            mRoomListDbHelper.joinRoom(pinCode, nickname, true);
             return true;
         }
     }
@@ -23,6 +23,6 @@ public class RoomFinder {
     }
 
     public void join(String pinCode, String nickname) {
-        mRoomListDbHelper.joinRoom(pinCode, nickname);
+        mRoomListDbHelper.joinRoom(pinCode, nickname, false);
     }
 }

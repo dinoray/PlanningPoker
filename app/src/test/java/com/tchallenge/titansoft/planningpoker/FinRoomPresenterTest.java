@@ -41,7 +41,7 @@ public class FinRoomPresenterTest {
     private IRoomListDbHelper getFakeRoomListDbHelper() {
         return new IRoomListDbHelper() {
             @Override
-            public void joinRoom(String pinCode, String nickName) {
+            public void joinRoom(String pinCode, String nickName, boolean isHost) {
 
             }
 

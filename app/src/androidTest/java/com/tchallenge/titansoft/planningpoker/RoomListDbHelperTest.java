@@ -23,7 +23,7 @@ public class RoomListDbHelperTest {
     public void joinRoom() {
         RoomListDbHelper roomListDbHelper = new RoomListDbHelper(new RoomListDbHelper.IRoomDbListener() {
             @Override
-            public void onRoomJoin(String pinCode, boolean isSuccess) {
+            public void onRoomJoin(String pinCode, boolean isSuccess, boolean isHost) {
                 assertTrue(pinCode.equals("9999"));
                 assertTrue(isSuccess);
                 RoomListDbHelperTest.this.notifyRoomCreate();
@@ -35,7 +35,7 @@ public class RoomListDbHelperTest {
             }
         });
 
-        roomListDbHelper.joinRoom("9999", "gg");
+        roomListDbHelper.joinRoom("9999", "gg", true);
         waitRoomCreate();
     }
 
@@ -43,7 +43,7 @@ public class RoomListDbHelperTest {
     public void existRoom() {
         RoomListDbHelper roomListDbHelper = new RoomListDbHelper(new RoomListDbHelper.IRoomDbListener() {
             @Override
-            public void onRoomJoin(String pinCode, boolean isSuccess) {
+            public void onRoomJoin(String pinCode, boolean isSuccess, boolean isHost) {
                 assertTrue(pinCode.equals("8888"));
                 assertTrue(isSuccess);
                 RoomListDbHelperTest.this.notifyRoomCreate();
@@ -55,7 +55,7 @@ public class RoomListDbHelperTest {
             }
         });
 
-        roomListDbHelper.joinRoom("8888", "gg");
+        roomListDbHelper.joinRoom("8888", "gg", true);
         roomListDbHelper.exitRoom("8888", "gg");
         waitRoomCreate();
     }

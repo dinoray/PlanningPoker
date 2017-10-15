@@ -18,7 +18,7 @@ public class RoomListDbHelper implements IRoomListDbHelper {
     private static final String TAG = RoomListDbHelper.class.getSimpleName();
 
     public interface IRoomDbListener {
-        void onRoomJoin(String pinCode, boolean isSuccess);
+        void onRoomJoin(String pinCode, boolean isSuccess, boolean isHost);
 
         void onRoomExit(String pinCode, boolean isSuccess);
     }
@@ -55,7 +55,7 @@ public class RoomListDbHelper implements IRoomListDbHelper {
     }
 
     @Override
-    public void joinRoom(final String pinCode, String nickName) {
+    public void joinRoom(final String pinCode, String nickName, final boolean isHost) {
         mRoomDbRef
                 .child(pinCode)
                 .child(nickName)
@@ -64,14 +64,14 @@ public class RoomListDbHelper implements IRoomListDbHelper {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.d(TAG, "pinCode: " + pinCode + " create success");
-                        mRoomDbListener.onRoomJoin(pinCode, true);
+                        mRoomDbListener.onRoomJoin(pinCode, true, isHost);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.d(TAG, "pinCode: " + pinCode + " create fail");
-                        mRoomDbListener.onRoomJoin(pinCode, false);
+                        mRoomDbListener.onRoomJoin(pinCode, false, isHost);
                     }
                 });
     }
