@@ -19,6 +19,7 @@
         <activity android:name=".view.SelectCardActivity" />
         <activity android:name=".view.RoundResultActivity" />
         <activity android:name=".view.FindRoomActivity" />
+        <activity android:name=".view.WaitingRoomActivity" />
     </application>
 
 </manifest>
