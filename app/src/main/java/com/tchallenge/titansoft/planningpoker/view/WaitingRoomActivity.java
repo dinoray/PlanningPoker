@@ -26,14 +26,18 @@ public class WaitingRoomActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_waiting_room);
 
-        String pincode = getIntent().getStringExtra("pincode");
+        final String pincode = getIntent().getStringExtra("pincode");
         boolean isHost = getIntent().getBooleanExtra("host",false);
+        mRoomDbRef = FirebaseDatabase.getInstance().getReference("Rooms");
 
         if (isHost){
+            TextView tvPincode = (TextView) findViewById(R.id.tv_pincode);
+            tvPincode.setText(pincode);
             findViewById(R.id.btn_start).setVisibility(View.VISIBLE);
             findViewById(R.id.btn_start).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    mRoomDbRef.child(pincode).child("-start-").setValue(-1);
                     Intent intent = new Intent(WaitingRoomActivity.this, SelectCardActivity.class);
                     startActivity(intent);
                 }
@@ -46,10 +50,17 @@ public class WaitingRoomActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Show all nickname on screen
                 LinearLayout layout = (LinearLayout) findViewById(R.id.layout_wait);
+                layout.removeAllViews();
                 for (DataSnapshot data : dataSnapshot.getChildren()) {
-                    TextView tv = new TextView(WaitingRoomActivity.this);
-                    tv.setText(data.getKey());
-                    layout.addView(tv,0);
+                    if (data.getKey().equals("-start-")){
+                        Intent intent = new Intent(WaitingRoomActivity.this, SelectCardActivity.class);
+                        startActivity(intent);
+                    } else {
+                        TextView tv = new TextView(WaitingRoomActivity.this);
+                        tv.setText(data.getKey());
+                        layout.addView(tv);
+                    }
+
                 }
             }
 
