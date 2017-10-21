@@ -17,46 +17,45 @@ import java.util.Random;
 
 public class FindRoomActivity extends AppCompatActivity implements FindRoomContract.IFinRoomView {
 
+    public static final String TYPE = "Type";
+
+    private FindRoomContract.IFindRoomPresenter mFindRoomPresenter;
+
+    private View.OnClickListener mBtnClickListener = new android.view.View.OnClickListener() {
+        @Override
+        public void onClick(android.view.View view) {
+            String pincode = ((EditText) findViewById(R.id.edit_pincode)).getText().toString();
+            String nickname = ((EditText) findViewById(R.id.edit_nickname)).getText().toString();
+            if (view.getId() == R.id.btn_create)
+                mFindRoomPresenter.create(pincode, nickname);
+            else
+                mFindRoomPresenter.join(pincode, nickname);
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_room);
 
-        final FindRoomContract.IFindRoomPresenter findRoomPresenter = new FindRoomPresenter(this);
+        mFindRoomPresenter = new FindRoomPresenter(this);
 
-        initControl(findRoomPresenter);
+        initControllButton();
+        initPinCodeEditTxt();
     }
 
-    private void initControl(final FindRoomContract.IFindRoomPresenter findRoomPresenter) {
-        int typeInt = getIntent().getIntExtra("Type", 0);
+    private void initControllButton() {
+        int typeInt = getIntent().getIntExtra(TYPE, 0);
+        int targetBtnResId = MainActivity.RequestCode.CREATE.equals(typeInt) ? R.id.btn_create : R.id.btn_join;
+        Button button = (Button) findViewById(targetBtnResId);;
+        button.setVisibility(View.VISIBLE);
+        button.setOnClickListener(mBtnClickListener);
+    }
 
-        if (typeInt == 1001) {
-            Button createBtn = (Button) findViewById(R.id.btn_create);
-            createBtn.setVisibility(View.VISIBLE);
-            createBtn.setOnClickListener(new android.view.View.OnClickListener() {
-                @Override
-                public void onClick(android.view.View view) {
-                    String pincode = ((EditText) findViewById(R.id.edit_pincode)).getText().toString();
-                    String nickname = ((EditText) findViewById(R.id.edit_nickname)).getText().toString();
-                    findRoomPresenter.create(pincode, nickname);
-                }
-            });
-            EditText pinCodeEditTxt = (EditText) findViewById(R.id.edit_pincode);
-            Random rnd = new Random();
-            int n = 1000 + rnd.nextInt(9000);
-            pinCodeEditTxt.setText(String.valueOf(n));
-        } else if (typeInt == 1002) {
-            Button joinBtn = (Button) findViewById(R.id.btn_join);
-            joinBtn.setVisibility(View.VISIBLE);
-            joinBtn.setOnClickListener(new android.view.View.OnClickListener() {
-                @Override
-                public void onClick(android.view.View view) {
-                    String pincode = ((EditText) findViewById(R.id.edit_pincode)).getText().toString();
-                    String nickname = ((EditText) findViewById(R.id.edit_nickname)).getText().toString();
-                    findRoomPresenter.join(pincode, nickname);
-                }
-            });
-        }
+    private void initPinCodeEditTxt() {
+        EditText pinCodeEditTxt = (EditText) findViewById(R.id.edit_pincode);
+        int randomPindcode = 1000 + new Random().nextInt(9000);
+        pinCodeEditTxt.setText(String.valueOf(randomPindcode));
     }
 
     @Override
