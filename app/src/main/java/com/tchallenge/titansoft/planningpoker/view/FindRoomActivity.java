@@ -40,22 +40,24 @@ public class FindRoomActivity extends AppCompatActivity implements FindRoomContr
 
         mFindRoomPresenter = new FindRoomPresenter(this);
 
-        initControllButton();
-        initPinCodeEditTxt();
+        int typeInt = getIntent().getIntExtra(TYPE, 0);
+        initControllButton(typeInt);
+        initPinCodeEditTxt(typeInt);
     }
 
-    private void initControllButton() {
-        int typeInt = getIntent().getIntExtra(TYPE, 0);
+    private void initControllButton(int typeInt) {
         int targetBtnResId = MainActivity.RequestCode.CREATE.equals(typeInt) ? R.id.btn_create : R.id.btn_join;
-        Button button = (Button) findViewById(targetBtnResId);;
+        Button button = (Button) findViewById(targetBtnResId);
         button.setVisibility(View.VISIBLE);
         button.setOnClickListener(mBtnClickListener);
     }
 
-    private void initPinCodeEditTxt() {
-        EditText pinCodeEditTxt = (EditText) findViewById(R.id.edit_pincode);
-        int randomPindcode = 1000 + new Random().nextInt(9000);
-        pinCodeEditTxt.setText(String.valueOf(randomPindcode));
+    private void initPinCodeEditTxt(int typeInt) {
+        if (MainActivity.RequestCode.CREATE.equals(typeInt)) {
+            EditText pinCodeEditTxt = (EditText) findViewById(R.id.edit_pincode);
+            int randomPindcode = 1000 + new Random().nextInt(9000);
+            pinCodeEditTxt.setText(String.valueOf(randomPindcode));
+        }
     }
 
     @Override
