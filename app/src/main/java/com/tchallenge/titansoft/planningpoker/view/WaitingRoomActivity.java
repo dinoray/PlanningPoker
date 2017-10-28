@@ -9,17 +9,18 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.tchallenge.titansoft.planningpoker.R;
+import com.tchallenge.titansoft.planningpoker.contract.WaitingRoomContract;
+import com.tchallenge.titansoft.planningpoker.prsenter.WaitingRoomPresenter;
+
+import java.util.List;
 
 
-public class WaitingRoomActivity extends AppCompatActivity {
+public class WaitingRoomActivity extends AppCompatActivity implements WaitingRoomContract.IWaitingRoomView{
 
     private static final String TAG = WaitingRoomActivity.class.getSimpleName();
-    private DatabaseReference mRoomDbRef;
+
+    private WaitingRoomPresenter mWaitingRoomPresenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,37 +38,30 @@ public class WaitingRoomActivity extends AppCompatActivity {
             findViewById(R.id.btn_start).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    mRoomDbRef.child(pincode).child("-start-").setValue(-1);
-                    Intent intent = new Intent(WaitingRoomActivity.this, SelectCardActivity.class);
-                    startActivity(intent);
+                    mWaitingRoomPresenter.startRound();
+                    startSelectCardActivity();
                 }
             });
         }
 
-        mRoomDbRef = FirebaseDatabase.getInstance().getReference("Rooms");
-        mRoomDbRef.child(pincode).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // Show all nickname on screen
-                LinearLayout layout = (LinearLayout) findViewById(R.id.layout_wait);
-                layout.removeAllViews();
-                for (DataSnapshot data : dataSnapshot.getChildren()) {
-                    if (data.getKey().equals("-start-")){
-                        Intent intent = new Intent(WaitingRoomActivity.this, SelectCardActivity.class);
-                        startActivity(intent);
-                    } else {
-                        TextView tv = new TextView(WaitingRoomActivity.this);
-                        tv.setText(data.getKey());
-                        layout.addView(tv);
-                    }
+        mWaitingRoomPresenter = new WaitingRoomPresenter(this, pincode);
+        mWaitingRoomPresenter.initMemberList();
+    }
 
-                }
-            }
+    @Override
+    public void startSelectCardActivity() {
+        Intent intent = new Intent(WaitingRoomActivity.this, SelectCardActivity.class);
+        startActivity(intent);
+    }
 
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-            }
-        });
+    @Override
+    public void resetMembers(List<String> nicknames) {
+        LinearLayout layout = (LinearLayout) findViewById(R.id.layout_wait);
+        layout.removeAllViews();
+        for (String nickname : nicknames) {
+            TextView tv = new TextView(this);
+            tv.setText(nickname);
+            layout.addView(tv);
+        }
     }
 }
