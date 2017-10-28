@@ -18,7 +18,7 @@ import com.tchallenge.titansoft.planningpoker.R;
 
 public class WaitingRoomActivity extends AppCompatActivity {
 
-    private static final String TAG = WaitingRoomActivity.class.getSimpleName();;
+    private static final String TAG = WaitingRoomActivity.class.getSimpleName();
     private DatabaseReference mRoomDbRef;
 
     @Override
@@ -26,13 +26,13 @@ public class WaitingRoomActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_waiting_room);
 
-        final String pincode = getIntent().getStringExtra("pincode");
         boolean isHost = getIntent().getBooleanExtra("host",false);
-        mRoomDbRef = FirebaseDatabase.getInstance().getReference("Rooms");
+
+        final String pincode = getIntent().getStringExtra("pincode");
+        TextView tvPincode = (TextView) findViewById(R.id.tv_pincode);
+        tvPincode.setText(pincode);
 
         if (isHost){
-            TextView tvPincode = (TextView) findViewById(R.id.tv_pincode);
-            tvPincode.setText(pincode);
             findViewById(R.id.btn_start).setVisibility(View.VISIBLE);
             findViewById(R.id.btn_start).setOnClickListener(new View.OnClickListener() {
                 @Override
