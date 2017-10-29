@@ -17,6 +17,7 @@ import java.util.List;
 
 public class RoomDbHelper {
     private final IRoomDbListener mRoomDbListener;
+    private final String mPincode;
     private DatabaseReference mRoomDbRef;
 
     public interface IRoomDbListener {
@@ -24,13 +25,14 @@ public class RoomDbHelper {
         void onStartChange();
     }
 
-    public RoomDbHelper(IRoomDbListener listener) {
+    public RoomDbHelper(String pincode, IRoomDbListener listener) {
+        mPincode = pincode;
         mRoomDbListener = listener;
         mRoomDbRef = FirebaseDatabase.getInstance().getReference("Rooms");
     }
 
-    public void initRoom(String pincode) {
-        mRoomDbRef.child(pincode).addValueEventListener(new ValueEventListener() {
+    public void initRoom() {
+        mRoomDbRef.child(mPincode).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Show all nickname on screen
@@ -54,7 +56,7 @@ public class RoomDbHelper {
         });
     }
 
-    public void notifyStart(String pincode) {
-        mRoomDbRef.child(pincode).child("-start-").setValue(-1);
+    public void notifyStart() {
+        mRoomDbRef.child(mPincode).child("-start-").setValue(-1);
     }
 }

@@ -14,17 +14,17 @@ public class WaitingRoomPresenter implements WaitingRoomContract.IWaitingRoomPre
     public WaitingRoomPresenter(WaitingRoomContract.IWaitingRoomView view, String pinCode) {
         mPinCode = pinCode;
         mView = view;
-        mRoomDbHelper = new RoomDbHelper(this);
+        mRoomDbHelper = new RoomDbHelper(mPinCode,this);
     }
 
     @Override
     public void initMemberList() {
-        mRoomDbHelper.initRoom(mPinCode);
+        mRoomDbHelper.initRoom();
     }
 
     @Override
     public void startRound() {
-        mRoomDbHelper.notifyStart(mPinCode);
+        mRoomDbHelper.notifyStart();
 
     }
 
