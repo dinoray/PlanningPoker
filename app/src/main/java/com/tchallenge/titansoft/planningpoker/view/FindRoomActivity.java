@@ -69,6 +69,7 @@ public class FindRoomActivity extends AppCompatActivity implements FindRoomContr
         intent.putExtra(WaitingRoomActivity.EXTRA_NICKNAME, nickname);
         intent.putExtra("host", isHost);
         startActivity(intent);
+        finish();
     }
 
     @Override

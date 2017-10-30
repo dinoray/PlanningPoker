@@ -12,6 +12,7 @@ public class WaitingRoomContract {
 
     public interface IWaitingRoomPresenter {
         void initMemberList();
+        void exitRoom(String nickname, boolean isHost);
         void startRound();
     }
 }

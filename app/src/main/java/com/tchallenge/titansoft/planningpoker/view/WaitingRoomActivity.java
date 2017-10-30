@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.firebase.database.DataSnapshot;
 import com.tchallenge.titansoft.planningpoker.R;
 import com.tchallenge.titansoft.planningpoker.contract.WaitingRoomContract;
 import com.tchallenge.titansoft.planningpoker.prsenter.WaitingRoomPresenter;
@@ -22,24 +21,24 @@ public class WaitingRoomActivity extends AppCompatActivity implements WaitingRoo
     public static final String EXTRA_PINCODE = "pincode";
     public static final String EXTRA_NICKNAME = "nickname";
 
-    private WaitingRoomPresenter mWaitingRoomPresenter;
+    private WaitingRoomContract.IWaitingRoomPresenter mWaitingRoomPresenter;
     private String mPincode;
     private String mNickName;
+    private boolean mIsHost;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_waiting_room);
 
-        boolean isHost = getIntent().getBooleanExtra("host",false);
-
+        mIsHost = getIntent().getBooleanExtra("host",false);
         mPincode = getIntent().getStringExtra(EXTRA_PINCODE);
         mNickName = getIntent().getStringExtra(EXTRA_NICKNAME);
 
         TextView tvPincode = (TextView) findViewById(R.id.tv_pincode);
         tvPincode.setText(mPincode);
 
-        if (isHost){
+        if (mIsHost){
             findViewById(R.id.btn_start).setVisibility(View.VISIBLE);
             findViewById(R.id.btn_start).setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -60,6 +59,13 @@ public class WaitingRoomActivity extends AppCompatActivity implements WaitingRoo
         intent.putExtra(SelectCardActivity.EXTRA_NICKNAME, mNickName);
         startActivity(intent);
         finish();
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        mWaitingRoomPresenter.exitRoom(mNickName, mIsHost);
+        super.onBackPressed();
     }
 
     @Override

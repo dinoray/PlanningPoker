@@ -27,6 +27,11 @@ public class SelectCardActivity extends AppCompatActivity {
         mRoomMemberDbHelper = new RoomMemberDbHelper(mPinCode, nickname);
     }
 
+    @Override
+    public void onBackPressed() {
+
+    }
+
     public void BtnClick(View view){
         String result = view.getTag().toString();
         mRoomMemberDbHelper.updateResult(result);

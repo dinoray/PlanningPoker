@@ -25,6 +25,15 @@ public class WaitingRoomPresenter implements WaitingRoomContract.IWaitingRoomPre
     }
 
     @Override
+    public void exitRoom(String nickname, boolean isHost) {
+        if(isHost) {
+            mRoomDbHelper.removeRoom();
+        } else {
+            mRoomDbHelper.removeUser(nickname);
+        }
+    }
+
+    @Override
     public void startRound() {
         mRoomDbHelper.notifyStart();
 

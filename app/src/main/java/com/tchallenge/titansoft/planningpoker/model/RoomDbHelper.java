@@ -61,4 +61,13 @@ public class RoomDbHelper {
     public void notifyStart() {
         mRoomDbRef.child(mPincode).child("-start-").setValue(-1);
     }
+
+    public void removeUser(String nickname) {
+        mRoomDbRef.child(mPincode).child(nickname).removeValue();
+    }
+
+    public void removeRoom() {
+        mRoomDbRef.child(mPincode).removeValue();
+    }
+
 }
