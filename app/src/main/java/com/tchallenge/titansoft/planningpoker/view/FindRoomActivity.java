@@ -64,7 +64,9 @@ public class FindRoomActivity extends AppCompatActivity implements FindRoomContr
     public void joinWaitingRoom(boolean isHost) {
         Intent intent = new Intent(this, WaitingRoomActivity.class);
         String pincode = ((EditText) findViewById(R.id.edit_pincode)).getText().toString();
-        intent.putExtra("pincode", pincode);
+        String nickname = ((EditText) findViewById(R.id.edit_nickname)).getText().toString();
+        intent.putExtra(WaitingRoomActivity.EXTRA_PINCODE, pincode);
+        intent.putExtra(WaitingRoomActivity.EXTRA_NICKNAME, nickname);
         intent.putExtra("host", isHost);
         startActivity(intent);
     }

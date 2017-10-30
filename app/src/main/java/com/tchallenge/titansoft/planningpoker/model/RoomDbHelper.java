@@ -13,7 +13,9 @@ import com.tchallenge.titansoft.planningpoker.R;
 import com.tchallenge.titansoft.planningpoker.view.SelectCardActivity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class RoomDbHelper {
     private final IRoomDbListener mRoomDbListener;
@@ -21,7 +23,7 @@ public class RoomDbHelper {
     private DatabaseReference mRoomDbRef;
 
     public interface IRoomDbListener {
-        void onMembesUpdate(List<String> nicknames);
+        void onMembesUpdate(Map<String, String> memberInfos);
         void onStartChange();
     }
 
@@ -36,12 +38,12 @@ public class RoomDbHelper {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Show all nickname on screen
-                List<String> nicknames = new ArrayList<>();
+                Map<String, String> nicknames = new HashMap<>();
                 for (DataSnapshot data : dataSnapshot.getChildren()) {
                     if (data.getKey().equals("-start-")) {
                         mRoomDbListener.onStartChange();
                     } else {
-                        nicknames.add(data.getKey());
+                        nicknames.put(data.getKey(), String.valueOf(data.getValue()));
                     }
 
                 }

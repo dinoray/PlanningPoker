@@ -19,8 +19,12 @@ import java.util.List;
 public class WaitingRoomActivity extends AppCompatActivity implements WaitingRoomContract.IWaitingRoomView{
 
     private static final String TAG = WaitingRoomActivity.class.getSimpleName();
+    public static final String EXTRA_PINCODE = "pincode";
+    public static final String EXTRA_NICKNAME = "nickname";
 
     private WaitingRoomPresenter mWaitingRoomPresenter;
+    private String mPincode;
+    private String mNickName;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -29,9 +33,11 @@ public class WaitingRoomActivity extends AppCompatActivity implements WaitingRoo
 
         boolean isHost = getIntent().getBooleanExtra("host",false);
 
-        final String pincode = getIntent().getStringExtra("pincode");
+        mPincode = getIntent().getStringExtra(EXTRA_PINCODE);
+        mNickName = getIntent().getStringExtra(EXTRA_NICKNAME);
+
         TextView tvPincode = (TextView) findViewById(R.id.tv_pincode);
-        tvPincode.setText(pincode);
+        tvPincode.setText(mPincode);
 
         if (isHost){
             findViewById(R.id.btn_start).setVisibility(View.VISIBLE);
@@ -39,19 +45,21 @@ public class WaitingRoomActivity extends AppCompatActivity implements WaitingRoo
                 @Override
                 public void onClick(View view) {
                     mWaitingRoomPresenter.startRound();
-                    startSelectCardActivity();
                 }
             });
         }
 
-        mWaitingRoomPresenter = new WaitingRoomPresenter(this, pincode);
+        mWaitingRoomPresenter = new WaitingRoomPresenter(this, mPincode);
         mWaitingRoomPresenter.initMemberList();
     }
 
     @Override
     public void startSelectCardActivity() {
-        Intent intent = new Intent(WaitingRoomActivity.this, SelectCardActivity.class);
+        Intent intent = new Intent(this, SelectCardActivity.class);
+        intent.putExtra(SelectCardActivity.EXTRA_PINCODE, mPincode);
+        intent.putExtra(SelectCardActivity.EXTRA_NICKNAME, mNickName);
         startActivity(intent);
+        finish();
     }
 
     @Override

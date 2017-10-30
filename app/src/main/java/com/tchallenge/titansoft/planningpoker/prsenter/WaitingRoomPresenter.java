@@ -3,7 +3,9 @@ package com.tchallenge.titansoft.planningpoker.prsenter;
 import com.tchallenge.titansoft.planningpoker.contract.WaitingRoomContract;
 import com.tchallenge.titansoft.planningpoker.model.RoomDbHelper;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class WaitingRoomPresenter implements WaitingRoomContract.IWaitingRoomPresenter, RoomDbHelper.IRoomDbListener {
 
@@ -29,7 +31,11 @@ public class WaitingRoomPresenter implements WaitingRoomContract.IWaitingRoomPre
     }
 
     @Override
-    public void onMembesUpdate(List<String> nicknames) {
+    public void onMembesUpdate(Map<String, String> memberInfos) {
+        List<String> nicknames = new ArrayList<>();
+        for(Map.Entry<String, String> memberInfo : memberInfos.entrySet()) {
+            nicknames.add(memberInfo.getKey());
+        }
         mView.resetMembers(nicknames);
     }
 
