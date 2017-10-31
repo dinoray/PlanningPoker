@@ -6,12 +6,14 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.tchallenge.titansoft.planningpoker.R;
 import com.tchallenge.titansoft.planningpoker.contract.WaitingRoomContract;
 import com.tchallenge.titansoft.planningpoker.prsenter.WaitingRoomPresenter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -21,6 +23,7 @@ public class WaitingRoomActivity extends AppCompatActivity implements WaitingRoo
     public static final String EXTRA_PINCODE = "pincode";
     public static final String EXTRA_NICKNAME = "nickname";
 
+    private WaitingMemberAdapter mMemberAdapter;
     private WaitingRoomContract.IWaitingRoomPresenter mWaitingRoomPresenter;
     private String mPincode;
     private String mNickName;
@@ -48,8 +51,18 @@ public class WaitingRoomActivity extends AppCompatActivity implements WaitingRoo
             });
         }
 
+        ListView listview = (ListView) findViewById(R.id.list_member);
+        mMemberAdapter = new WaitingMemberAdapter(this, R.layout.view_item_waiting_member , new ArrayList<String>());
+        listview.setAdapter(mMemberAdapter);
+
         mWaitingRoomPresenter = new WaitingRoomPresenter(this, mPincode);
         mWaitingRoomPresenter.initMemberList();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mWaitingRoomPresenter.uninit();
     }
 
     @Override
@@ -69,13 +82,13 @@ public class WaitingRoomActivity extends AppCompatActivity implements WaitingRoo
     }
 
     @Override
-    public void resetMembers(List<String> nicknames) {
-        LinearLayout layout = (LinearLayout) findViewById(R.id.layout_wait);
-        layout.removeAllViews();
-        for (String nickname : nicknames) {
-            TextView tv = new TextView(this);
-            tv.setText(nickname);
-            layout.addView(tv);
-        }
+    public void resetMembers(final List<String> nicknames) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mMemberAdapter.clear();
+                mMemberAdapter.addAll(nicknames);
+            }
+        });
     }
 }

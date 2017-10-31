@@ -14,5 +14,6 @@ public class WaitingRoomContract {
         void initMemberList();
         void exitRoom(String nickname, boolean isHost);
         void startRound();
+        void uninit();
     }
 }

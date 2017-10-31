@@ -87,4 +87,19 @@ public class FindRoomActivity extends AppCompatActivity implements FindRoomContr
         builder.show();
     }
 
+    @Override
+    public void showNoNameDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.activity_no_name_error_title);
+        builder.setMessage(R.string.activity_no_name_error_message);
+        builder.setPositiveButton(R.string.dialog_btn_ok, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        builder.show();
+    }
+
 }

@@ -22,7 +22,7 @@ public class RoundResultActivity extends AppCompatActivity implements IRoundResu
 
     public static final String EXTRA_PINCODE = "pincode";
     public static final String EXTRA_NICKNAME = "nickname";
-    private ArrayAdapter<String> mAdatper;
+    private RoundResultAdapter mAdatper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +52,6 @@ public class RoundResultActivity extends AppCompatActivity implements IRoundResu
         finishBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(RoundResultActivity.this,MainActivity.class);
-                startActivity(intent);
                 finish();
             }
         });
@@ -61,7 +59,7 @@ public class RoundResultActivity extends AppCompatActivity implements IRoundResu
 
     private void initMemberInfoList() {
         ListView listView = (ListView) findViewById(R.id.memberInfoList);
-        mAdatper = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, new ArrayList<String>());
+        mAdatper = new RoundResultAdapter(this, R.layout.view_item_round_result, new ArrayList<String>());
         listView.setAdapter(mAdatper);
     }
 

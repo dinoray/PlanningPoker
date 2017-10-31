@@ -25,6 +25,8 @@ public class FindRoomPresenter implements FindRoomContract.IFindRoomPresenter, R
 
     @Override
     public void create(String pinCode, String nickname) {
+        if (isNickNameInvalid(nickname)) return;
+
         boolean isSuccess = mRoomFinder.create(pinCode, nickname);
         if(!isSuccess) {
             mFindRoomView.showRoomExistedDialog();
@@ -33,7 +35,17 @@ public class FindRoomPresenter implements FindRoomContract.IFindRoomPresenter, R
 
     @Override
     public void join(String pinCode, String nickname) {
+        if (isNickNameInvalid(nickname)) return;
+
         mRoomFinder.join(pinCode, nickname);
+    }
+
+    private boolean isNickNameInvalid(String nickname) {
+        if(nickname.isEmpty()) {
+            mFindRoomView.showNoNameDialog();
+            return true;
+        }
+        return false;
     }
 
     @Override

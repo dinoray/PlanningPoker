@@ -13,4 +13,6 @@
     <string name="activity_find_room_error_message">Pindcode exist, please select another one.</string>
     <string name="activity_waiting_btn_start">Start</string>
     <string name="dialog_btn_ok">OK</string>
+    <string name="activity_no_name_error_title">No Name!</string>
+    <string name="activity_no_name_error_message">Please enter a nickname</string>
 </resources>

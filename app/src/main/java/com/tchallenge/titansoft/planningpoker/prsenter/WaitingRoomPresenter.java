@@ -16,7 +16,8 @@ public class WaitingRoomPresenter implements WaitingRoomContract.IWaitingRoomPre
     public WaitingRoomPresenter(WaitingRoomContract.IWaitingRoomView view, String pinCode) {
         mPinCode = pinCode;
         mView = view;
-        mRoomDbHelper = new RoomDbHelper(mPinCode,this);
+        mRoomDbHelper = new RoomDbHelper(mPinCode);
+        mRoomDbHelper.setRoomDbListener(this);
     }
 
     @Override
@@ -51,5 +52,10 @@ public class WaitingRoomPresenter implements WaitingRoomContract.IWaitingRoomPre
     @Override
     public void onStartChange() {
         mView.startSelectCardActivity();
+    }
+
+    @Override
+    public void uninit() {
+        mRoomDbHelper.setRoomDbListener(null);
     }
 }

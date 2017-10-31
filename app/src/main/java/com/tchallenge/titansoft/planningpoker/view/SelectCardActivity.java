@@ -16,6 +16,7 @@ public class SelectCardActivity extends AppCompatActivity {
 
     private RoomMemberDbHelper mRoomMemberDbHelper;
     private String mPinCode;
+    private String mNickName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,8 +24,8 @@ public class SelectCardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_select_card);
 
         mPinCode = getIntent().getStringExtra(EXTRA_PINCODE);
-        String nickname = getIntent().getStringExtra(EXTRA_NICKNAME);
-        mRoomMemberDbHelper = new RoomMemberDbHelper(mPinCode, nickname);
+        mNickName = getIntent().getStringExtra(EXTRA_NICKNAME);
+        mRoomMemberDbHelper = new RoomMemberDbHelper(mPinCode, mNickName);
     }
 
     @Override
@@ -37,6 +38,7 @@ public class SelectCardActivity extends AppCompatActivity {
         mRoomMemberDbHelper.updateResult(result);
         Intent intent = new Intent(getBaseContext(), RoundResultActivity.class);
         intent.putExtra(RoundResultActivity.EXTRA_PINCODE, mPinCode);
+        intent.putExtra(RoundResultActivity.EXTRA_NICKNAME, mNickName);
         startActivity(intent);
         finish();
     }

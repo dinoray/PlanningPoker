@@ -12,7 +12,8 @@ public class RoundResultPresenter implements RoundResultContract.IRoundResultPre
 
     public RoundResultPresenter(RoundResultContract.IRoundResultView view, String pincode) {
         mView = view;
-        mRoomDbHelper = new RoomDbHelper(pincode ,this);
+        mRoomDbHelper = new RoomDbHelper(pincode);
+        mRoomDbHelper.setRoomDbListener(this);
     }
 
 

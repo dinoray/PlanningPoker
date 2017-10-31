@@ -6,38 +6,57 @@
     android:layout_height="match_parent"
     tools:context="com.tchallenge.titansoft.planningpoker.view.FindRoomActivity">
 
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_v"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintGuide_begin="50dp"
+        android:orientation="horizontal"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_h"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        app:layout_constraintGuide_begin="170dp"
+        android:orientation="vertical"/>
+
     <TextView
         android:id="@+id/txt_pincode"
         style="@style/FindRoomText"
         android:text="@string/activity_find_room_txt_pincode"
-        android:paddingRight="30dp"
-        app:layout_constraintTop_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="parent" />
+        app:layout_constraintLeft_toLeftOf="@+id/txt_nickname"
+        app:layout_constraintTop_toTopOf="@+id/edit_pincode"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_pincode"
+        app:layout_constraintRight_toLeftOf="@+id/guideline_h" />
 
     <TextView
         android:id="@+id/txt_nickname"
         style="@style/FindRoomText"
         android:text="@string/activity_find_room_txt_nickname"
         app:layout_constraintTop_toTopOf="@+id/edit_nickname"
-        app:layout_constraintLeft_toRightOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="@+id/edit_nickname"
+        app:layout_constraintRight_toLeftOf="@+id/guideline_h"/>
+
 
     <EditText
         android:id="@+id/edit_pincode"
         style="@style/FindRoomEditText"
-        app:layout_constraintTop_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/txt_pincode" />
+        android:ems="4"
+        app:layout_constraintTop_toBottomOf="@+id/guideline_v"
+        app:layout_constraintLeft_toRightOf="@+id/guideline_h" />
 
     <EditText
         android:id="@+id/edit_nickname"
         style="@style/FindRoomEditText"
+        android:ems="4"
         app:layout_constraintTop_toBottomOf="@+id/edit_pincode"
-        app:layout_constraintLeft_toLeftOf="@+id/edit_pincode"/>
+        app:layout_constraintLeft_toRightOf="@+id/guideline_h"/>
 
     <Button
         android:id="@+id/btn_join"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        style="@style/btn_general"
+        android:layout_marginBottom="64dp"
         android:text="@string/activity_find_room_btn_join"
         android:visibility="gone"
         app:layout_constraintLeft_toRightOf="parent"
@@ -46,9 +65,8 @@
 
     <Button
         android:id="@+id/btn_create"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        style="@style/btn_general"
+        android:layout_marginBottom="64dp"
         android:text="@string/activity_find_room_btn_create"
         android:visibility="gone"
         app:layout_constraintLeft_toRightOf="parent"

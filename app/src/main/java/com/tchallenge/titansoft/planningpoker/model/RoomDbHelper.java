@@ -18,19 +18,23 @@ import java.util.List;
 import java.util.Map;
 
 public class RoomDbHelper {
-    private final IRoomDbListener mRoomDbListener;
+    private IRoomDbListener mRoomDbListener;
     private final String mPincode;
     private DatabaseReference mRoomDbRef;
 
     public interface IRoomDbListener {
         void onMembesUpdate(Map<String, String> memberInfos);
+
         void onStartChange();
     }
 
-    public RoomDbHelper(String pincode, IRoomDbListener listener) {
+    public RoomDbHelper(String pincode) {
         mPincode = pincode;
-        mRoomDbListener = listener;
         mRoomDbRef = FirebaseDatabase.getInstance().getReference("Rooms");
+    }
+
+    public void setRoomDbListener(IRoomDbListener listener) {
+        mRoomDbListener = listener;
     }
 
     public void initRoom() {
@@ -41,14 +45,16 @@ public class RoomDbHelper {
                 Map<String, String> nicknames = new HashMap<>();
                 for (DataSnapshot data : dataSnapshot.getChildren()) {
                     if (data.getKey().equals("-start-")) {
-                        mRoomDbListener.onStartChange();
+                        if (mRoomDbListener != null)
+                            mRoomDbListener.onStartChange();
                     } else {
                         nicknames.put(data.getKey(), String.valueOf(data.getValue()));
                     }
 
                 }
 
-                mRoomDbListener.onMembesUpdate(nicknames);
+                if (mRoomDbListener != null)
+                    mRoomDbListener.onMembesUpdate(nicknames);
             }
 
             @Override

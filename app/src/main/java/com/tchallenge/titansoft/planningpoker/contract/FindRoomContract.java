@@ -5,6 +5,7 @@ public class FindRoomContract {
     public interface IFinRoomView {
         void joinWaitingRoom(boolean isHost);
         void showRoomExistedDialog();
+        void showNoNameDialog();
     }
 
     public interface IFindRoomPresenter {
