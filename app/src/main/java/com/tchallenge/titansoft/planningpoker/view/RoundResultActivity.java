@@ -31,7 +31,7 @@ public class RoundResultActivity extends AppCompatActivity implements IRoundResu
 
         final String pincode = getIntent().getStringExtra(EXTRA_PINCODE);
         final String nickname = getIntent().getStringExtra(EXTRA_NICKNAME);
-        RoundResultContract.IRoundResultPresenter presenter = new RoundResultPresenter(this, pincode);
+        final RoundResultContract.IRoundResultPresenter presenter = new RoundResultPresenter(this, pincode);
         presenter.fetchMemberInfos();
 
         initMemberInfoList();
@@ -52,6 +52,7 @@ public class RoundResultActivity extends AppCompatActivity implements IRoundResu
         finishBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                presenter.removeRoom();
                 finish();
             }
         });

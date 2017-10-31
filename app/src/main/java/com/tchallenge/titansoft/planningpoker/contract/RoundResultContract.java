@@ -9,5 +9,6 @@ public class RoundResultContract {
 
     public interface IRoundResultPresenter {
         void fetchMemberInfos();
+        void removeRoom();
     }
 }

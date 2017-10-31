@@ -31,4 +31,9 @@ public class RoundResultPresenter implements RoundResultContract.IRoundResultPre
     public void fetchMemberInfos() {
         mRoomDbHelper.initRoom();
     }
+
+    @Override
+    public void removeRoom() {
+        mRoomDbHelper.removeRoom();
+    }
 }
