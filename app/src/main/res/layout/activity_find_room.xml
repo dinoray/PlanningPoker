@@ -43,6 +43,7 @@
         android:id="@+id/edit_pincode"
         style="@style/FindRoomEditText"
         android:ems="4"
+        android:maxLength="4"
         app:layout_constraintTop_toBottomOf="@+id/guideline_v"
         app:layout_constraintLeft_toRightOf="@+id/guideline_h" />
 
