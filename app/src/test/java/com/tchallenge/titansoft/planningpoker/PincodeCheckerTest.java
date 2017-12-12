@@ -18,7 +18,7 @@ public class PincodeCheckerTest {
         List<String> existedPincodeList = createPincodeList();
 
         PincodeChecker pincodeChecker = new PincodeChecker(existedPincodeList);
-
+cc
         assertFalse(pincodeChecker.hasPincode("7777"));
     }
 
